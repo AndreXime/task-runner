@@ -29,7 +29,7 @@ func ShowHelp() {
 		args string
 		desc string
 	}{
-		{green("tasker add"), yellow("<nome> '<comando>'"),  fmt.Sprintf("→ Adiciona um favorito, use %s para marcar como argumento.", cyan("$1"))},
+		{green("tasker add"), yellow("<nome> '<comando>'"), fmt.Sprintf("→ Adiciona um favorito, use %s para marcar como argumento.", cyan("$1"))},
 		{green("tasker list"), "", "→ Lista os favoritos."},
 		{green("tasker remove"), yellow("<nome>"), "→ Remove um favorito."},
 		{green("tasker run"), yellow("<nome> [arg]"), fmt.Sprintf("→ Executa o favorito, substituindo %s pelo argumento.", cyan("$1"))},

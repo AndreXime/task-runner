@@ -24,7 +24,7 @@ func SetupPath() {
 	aliasName := "tasker"
 
 	// Verifica se já está no PATH
-	if isCommandAvailable(binaryName) || isPathInProfile(binaryDir) {
+	if isAlreadyPresent(binaryName, binaryDir) {
 		utils.LogSuccess("✅ O Tasker já está no PATH!")
 		return
 	}
@@ -47,7 +47,7 @@ func addToPathWindows(binaryDir string) {
 	}
 }
 
-func addToPathUnix(binaryDir ,aliasName, binaryName string) {
+func addToPathUnix(binaryDir, aliasName, binaryName string) {
 	profile := getShellProfile()
 
 	exportLine := fmt.Sprintf("\n# Added by Tasker\nexport PATH=\"$PATH:%s\"\n", binaryDir)
@@ -79,18 +79,18 @@ func addToPathUnix(binaryDir ,aliasName, binaryName string) {
 	utils.LogInfo(fmt.Sprintf("🔄 Reinicie o terminal ou execute 'source %s' para aplicar.", profile))
 }
 
-func isCommandAvailable(command string) bool {
+func isAlreadyPresent(command, binaryDir string) bool {
 	var checkCmd *exec.Cmd
 	if runtime.GOOS == "windows" {
 		checkCmd = exec.Command("where", command)
 	} else {
 		checkCmd = exec.Command("command", "-v", command)
 	}
-	err := checkCmd.Run()
-	return err == nil
-}
 
-func isPathInProfile(binaryDir string) bool {
+	if checkCmd.Run() == nil {
+		return true
+	}
+
 	profile := getShellProfile()
 
 	exportLine := fmt.Sprintf("export PATH=\"$PATH:%s\"", binaryDir)
@@ -107,8 +107,8 @@ func isPathInProfile(binaryDir string) bool {
 func getShellProfile() string {
 	usr, _ := user.Current()
 	homeDir := usr.HomeDir
-
 	shell := os.Getenv("SHELL")
+
 	switch {
 	case strings.Contains(shell, "zsh"):
 		return filepath.Join(homeDir, ".zshrc")
