@@ -24,8 +24,8 @@ tasker remove list-port
 
 ### Download do binário
 
-Acesse a página de Releases.  
-Baixe o binário para seu sistema operacional:
+Acesse a página de [Releases](https://github.com/AndreXime/tasker-cli/releases) e
+baixe o binário para seu sistema operacional:
 
 ```bash
 # Dê permissão de execução (Linux/macOS):
@@ -40,7 +40,7 @@ tasker
 
 ```bash
 # Entre na pasta do repositorio
-git clone https://github.com/seu-usuario/tasker-cli.git
+git clone https://github.com/AndreXime/tasker-cli.git
 cd tasker-cli
 # Antes de compilar tenha Go instalado no seu PC
 go build -o tasker
