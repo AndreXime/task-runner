@@ -29,7 +29,9 @@ baixe o binário para seu sistema operacional:
 
 ```bash
 # Dê permissão de execução (Linux/macOS):
-chmod +x tasker-linux
+chmod +x tasker-linux-amd64
+# Mova para uma pasta segura
+mv tasker-linux-amd64 ~/.local/
 # Adicione ao path automaticamente
 ./tasker setup
 # Verifique o funcionamento
