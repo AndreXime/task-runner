@@ -26,7 +26,7 @@ for target in "${targets[@]}"; do
 
   echo "➡️  $GOOS/$GOARCH → $APP_NAME-$SUFFIX"
 
-  GOOS=$GOOS GOARCH=$GOARCH CGO_ENABLED=0 \
+  GOOS=$GOOS GOARCH=$GOARCH \
     go build -ldflags="-s -w" -o "$OUTPUT_DIR/$APP_NAME-$SUFFIX"
 done
 
