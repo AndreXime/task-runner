@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"io"
 	"os"
 	"strings"
 
@@ -25,10 +27,26 @@ func main() {
 		if len(rest) < 2 {
 			utils.LogError("Uso incorreto do comando add.")
 			core.ShowHelp()
-			os.Exit(1)
+			return
 		}
 		nome := rest[0]
-		comandoStr := strings.Join(rest[1:], " ")
+		var comandoStr string
+
+		if len(rest) == 2 && rest[1] == "--stdin" {
+			fmt.Println("Cole o comando completo abaixo e pressione Ctrl+D para finalizar:")
+			data, err := io.ReadAll(os.Stdin)
+			if err != nil {
+				utils.LogError("Erro ao ler do stdin: " + err.Error())
+				return
+			}
+			comandoStr = strings.TrimSpace(string(data))
+			if comandoStr == "" {
+				utils.LogError("Não foi passado nenhum comando")
+				return
+			}
+		} else {
+			comandoStr = strings.Join(rest[1:], " ")
+		}
 		commands.Add(nome, comandoStr)
 
 	case "list":
@@ -38,7 +56,7 @@ func main() {
 		if len(rest) != 1 {
 			utils.LogError("Uso incorreto do comando remove.")
 			core.ShowHelp()
-			os.Exit(1)
+			return
 		}
 		commands.Remove(rest[0])
 
@@ -46,7 +64,7 @@ func main() {
 		if len(rest) < 1 {
 			utils.LogError("Uso incorreto do comando run.")
 			core.ShowHelp()
-			os.Exit(1)
+			return
 		}
 		nome := rest[0]
 		arg := ""

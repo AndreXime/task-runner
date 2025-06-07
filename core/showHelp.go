@@ -2,38 +2,29 @@ package core
 
 import (
 	"fmt"
-	"regexp"
-	"strings"
-
-	"github.com/fatih/color"
-	"github.com/mattn/go-runewidth"
+	"tasker/utils"
 )
 
+type helpCommands = []struct {
+	cmd  string
+	args string
+	desc string
+}
+
 func ShowHelp() {
-	fmt.Println(color.New(color.FgBlue, color.Bold).Sprint("Tasker v0.6.0 🚀"))
-	fmt.Println(color.New(color.FgWhite).Sprint("Gerencie seus comandos favoritos."))
-
-	green := color.New(color.FgGreen).SprintFunc()
-	yellow := color.New(color.FgYellow).SprintFunc()
-	cyan := color.New(color.FgCyan).SprintFunc()
-	bold := color.New(color.Bold).SprintFunc()
-
-	fmt.Println()
-
-	fmt.Println(bold("Uso:"))
-
 	cmdArgsWidth := 32
+	fmt.Println(utils.BlueBold("\nTasker v0.7.0 🚀"))
+	fmt.Println(utils.White("Gerencie seus comandos favoritos.\n"))
 
-	lines := []struct {
-		cmd  string
-		args string
-		desc string
-	}{
-		{green("tasker add"), yellow("<nome> '<comando>'"), fmt.Sprintf("→ Adiciona um favorito, use %s para marcar como argumento.", cyan("$1"))},
-		{green("tasker list"), "", "→ Lista os favoritos."},
-		{green("tasker remove"), yellow("<nome>"), "→ Remove um favorito."},
-		{green("tasker run"), yellow("<nome> [arg]"), fmt.Sprintf("→ Executa o favorito, substituindo %s pelo argumento.", cyan("$1"))},
-		{green("tasker setup"), "", "→ Aplica o CLI na sua PATH."},
+	fmt.Println(utils.Bold("Comandos:"))
+
+	lines := helpCommands{
+		{utils.Green("tasker add"), utils.Yellow("<nome> '<comando>'"), fmt.Sprintf("Adiciona um favorito, use %s para marcar como argumento.", utils.Cyan("$1"))},
+		{utils.Green("tasker add"), utils.Yellow("<nome> --stdin"), "Lê o comando da entrada padrão (útil com aspas e caracteres especiais)."},
+		{utils.Green("tasker list"), "", "Lista todos os favoritos salvos."},
+		{utils.Green("tasker remove"), utils.Yellow("<nome>"), "Remove um favorito pelo nome."},
+		{utils.Green("tasker run"), utils.Yellow("<nome> [arg]"), fmt.Sprintf("Executa o favorito, substituindo %s pelo argumento fornecido.", utils.Cyan("$1"))},
+		{utils.Green("tasker setup"), "", "Adiciona o CLI à variável PATH."},
 	}
 
 	for _, line := range lines {
@@ -43,29 +34,13 @@ func ShowHelp() {
 		}
 
 		fmt.Printf("  %s %s\n",
-			padRightVisual(cmdAndArgs, cmdArgsWidth),
+			utils.PadRightVisual(cmdAndArgs, cmdArgsWidth),
 			line.desc,
 		)
 	}
 
-	fmt.Println(bold("Exemplos de uso:"))
-	fmt.Printf("  tasker add startDB %s\n", cyan("'docker compose start database'"))
+	fmt.Println(utils.Bold("\nExemplos de uso:"))
+	fmt.Printf("  tasker add startDB %s\n", utils.Cyan("'docker compose start database'"))
 	fmt.Printf("  tasker run startDB\n\n")
 
-}
-
-var ansiEscape = regexp.MustCompile(`\x1b\[[0-9;]*m`)
-
-func stripAnsi(str string) string {
-	return ansiEscape.ReplaceAllString(str, "")
-}
-
-func padRightVisual(s string, width int) string {
-	// Remove sequências ANSI para contar só os caracteres visíveis
-	plain := stripAnsi(s)
-	visibleLen := runewidth.StringWidth(plain)
-	if visibleLen >= width {
-		return s
-	}
-	return s + strings.Repeat(" ", width-visibleLen)
 }

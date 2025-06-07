@@ -1,29 +1,27 @@
 package commands
 
 import (
-	"os"
-
 	"tasker/core"
 	"tasker/utils"
 )
 
-// Add adiciona um favorito. Se já existir, loga erro e faz Exit(1).
+// Add adiciona um favorito. Se já existir, loga erro.
 func Add(name string, commandStr string) {
 	favoritos, err := core.LoadFavoritos()
 	if err != nil {
 		utils.LogError(err.Error())
-		os.Exit(1)
+		return
 	}
 
 	if _, exists := favoritos[name]; exists {
 		utils.LogError(`Já existe um favorito chamado "` + name + `"`)
-		os.Exit(1)
+		return
 	}
 
 	favoritos[name] = commandStr
 	if err := core.SaveFavoritos(favoritos); err != nil {
 		utils.LogError(err.Error())
-		os.Exit(1)
+		return
 	}
 
 	utils.LogSuccess(`Favorito "` + name + `" adicionado com sucesso.`)

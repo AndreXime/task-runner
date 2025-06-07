@@ -2,7 +2,6 @@ package commands
 
 import (
 	"fmt"
-	"os"
 	"sort"
 
 	"tasker/core"
@@ -15,7 +14,7 @@ func List() {
 	favoritos, err := core.LoadFavoritos()
 	if err != nil {
 		utils.LogError(err.Error())
-		os.Exit(1)
+		return
 	}
 
 	if len(favoritos) == 0 {
@@ -23,7 +22,7 @@ func List() {
 		return
 	}
 
-	fmt.Println("\n📜 Comandos favoritos:")
+	utils.LogInfo("\nComandos favoritos:")
 
 	// Ordena nomes para saída previsível
 	nomes := make([]string, 0, len(favoritos))
@@ -33,7 +32,7 @@ func List() {
 	sort.Strings(nomes)
 
 	for _, nome := range nomes {
-		fmt.Printf("  • %s → %s\n", nome, favoritos[nome])
+		fmt.Printf("  • %s → '%s'\n", nome, favoritos[nome])
 	}
 
 	fmt.Println()

@@ -1,8 +1,6 @@
 package commands
 
 import (
-	"os"
-
 	"tasker/core"
 	"tasker/utils"
 )
@@ -12,18 +10,18 @@ func Remove(name string) {
 	favoritos, err := core.LoadFavoritos()
 	if err != nil {
 		utils.LogError(err.Error())
-		os.Exit(1)
+		return
 	}
 
 	if _, exists := favoritos[name]; !exists {
 		utils.LogError(`Não existe favorito com o nome "` + name + `"`)
-		os.Exit(1)
+		return
 	}
 
 	delete(favoritos, name)
 	if err := core.SaveFavoritos(favoritos); err != nil {
 		utils.LogError(err.Error())
-		os.Exit(1)
+		return
 	}
 
 	utils.LogSuccess(`Favorito "` + name + `" removido.`)

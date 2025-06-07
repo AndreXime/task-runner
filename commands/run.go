@@ -14,13 +14,13 @@ func Run(name string, argumento string) {
 	favoritos, err := core.LoadFavoritos()
 	if err != nil {
 		utils.LogError(err.Error())
-		os.Exit(1)
+		return
 	}
 
 	favorito, exists := favoritos[name]
 	if !exists {
 		utils.LogError(`Não existe favorito com o nome "` + name + `"`)
-		os.Exit(1)
+		return
 	}
 
 	comandoFinal := favorito
@@ -28,11 +28,11 @@ func Run(name string, argumento string) {
 	if strings.Contains(favorito, "$1") {
 		if argumento == "" {
 			utils.LogError(`O favorito "` + name + `" requer um argumento para substituir $1.`)
-			os.Exit(1)
+			return
 		}
 		comandoFinal = strings.ReplaceAll(favorito, "$1", argumento)
 	} else if argumento != "" {
-		utils.LogWarning(`O comando "` + name + `" não possui placeholder $1. O argumento "` + argumento + `" será ignorado.`)
+		utils.LogWarning(`Esse comando não possui argumento, e assim será ignorado.`)
 	}
 
 	utils.LogInfo("Executando: " + comandoFinal + "\n")
@@ -41,4 +41,5 @@ func Run(name string, argumento string) {
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	cmd.Stdin = os.Stdin
+	cmd.Run()
 }
