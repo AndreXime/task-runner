@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"sort"
 
-	"tasker/core"
-	"tasker/utils"
+	"task-runner/core"
+	"task-runner/utils"
 )
 
 // List carrega todos os favoritos e exibe no console.

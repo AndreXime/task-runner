@@ -1,8 +1,8 @@
 package commands
 
 import (
-	"tasker/core"
-	"tasker/utils"
+	"task-runner/core"
+	"task-runner/utils"
 )
 
 // Add adiciona um favorito. Se já existir, loga erro.

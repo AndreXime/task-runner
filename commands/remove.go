@@ -1,8 +1,8 @@
 package commands
 
 import (
-	"tasker/core"
-	"tasker/utils"
+	"task-runner/core"
+	"task-runner/utils"
 )
 
 // Remove exclui o favorito baseado no nome. Se não existir, loga erro e sai.

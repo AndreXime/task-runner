@@ -2,7 +2,7 @@
 
 set -e
 
-APP_NAME="tasker"
+APP_NAME="taskrunner"
 OUTPUT_DIR="bin"
 
 # Cria o diretório se não existir

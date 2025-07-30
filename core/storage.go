@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 )
 
-const fileName = ".favoritos-cli.json"
+const fileName = ".fav-taskrunner.json"
 
 type FavoritosMap map[string]string
 

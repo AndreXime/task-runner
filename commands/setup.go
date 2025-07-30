@@ -9,7 +9,7 @@ import (
 	"runtime"
 	"strings"
 
-	"tasker/utils"
+	"task-runner/utils"
 )
 
 func SetupPath() {
@@ -21,11 +21,11 @@ func SetupPath() {
 	binaryDir := filepath.Dir(binaryPath)
 	binaryName := filepath.Base(binaryPath)
 
-	aliasName := "tasker"
+	aliasName := "trun"
 
 	// Verifica se já está no PATH
 	if isAlreadyPresent(binaryName, binaryDir) {
-		utils.LogSuccess("✅ O Tasker já está no PATH!")
+		utils.LogSuccess("✅ O TaskRunner já está no PATH!")
 		return
 	}
 
@@ -50,7 +50,7 @@ func addToPathWindows(binaryDir string) {
 func addToPathUnix(binaryDir, aliasName, binaryName string) {
 	profile := getShellProfile()
 
-	exportLine := fmt.Sprintf("\n# Added by Tasker\nexport PATH=\"$PATH:%s\"\n", binaryDir)
+	exportLine := fmt.Sprintf("\n# Added by TaskRunner\nexport PATH=\"$PATH:%s\"\n", binaryDir)
 	aliasLine := fmt.Sprintf("alias %s=\"%s\"\n", aliasName, binaryName)
 
 	contentBytes, _ := os.ReadFile(profile)

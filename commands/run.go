@@ -5,8 +5,8 @@ import (
 	"os/exec"
 	"strings"
 
-	"tasker/core"
-	"tasker/utils"
+	"task-runner/core"
+	"task-runner/utils"
 )
 
 // Run executa o favorito: substitui $1 se existir placeholder ou avisa se houver argumento extra.

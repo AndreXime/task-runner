@@ -1,4 +1,4 @@
-module tasker
+module task-runner
 
 go 1.22.3
 

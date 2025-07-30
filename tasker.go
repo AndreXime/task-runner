@@ -6,9 +6,9 @@ import (
 	"os"
 	"strings"
 
-	"tasker/commands"
-	"tasker/core"
-	"tasker/utils"
+	"task-runner/commands"
+	"task-runner/core"
+	"task-runner/utils"
 )
 
 func main() {
