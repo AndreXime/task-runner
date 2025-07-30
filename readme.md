@@ -2,6 +2,10 @@
 
 Tasker é um CLI (Command Line Interface) desenvolvido em Go para gerenciar seus comandos favoritos no terminal. Salve, execute e organize comandos que você utiliza com frequência, de forma simples e rápida.
 
+## Interface
+<img width="1396" height="413" alt="image" src="https://github.com/user-attachments/assets/da45fe4b-ee8c-47b7-9ef4-b0c25dd5258c" />
+
+
 ## Funcionalidades
 
 - Salvar comandos favoritos com nome customizado.
@@ -10,15 +14,6 @@ Tasker é um CLI (Command Line Interface) desenvolvido em Go para gerenciar seus
 - Adicionar o Tasker automaticamente ao seu $PATH.
 - Armazena seus comandos de forma persistente em um arquivo JSON na sua home.
 
-### Exemplos dos comandos
-
-```bash
-# Comando para listar processos que usam certa porta
-tasker add list-port 'lsof -i :$1'
-tasker list
-tasker run list-port 3000
-tasker remove list-port
-```
 
 ## Instalação
 
